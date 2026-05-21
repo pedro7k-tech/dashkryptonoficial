@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1779328594815",
+    "name": "Test Lead",
+    "phone": "88999999999",
+    "device": "iPhone 15 Pro",
+    "service_type": "local",
+    "status": "pending",
+    "city": "Cruz",
+    "createdAt": "2026-05-21T01:56:34.815Z"
+  },
+  {
+    "id": "1779126240166",
+    "name": "Lead Teste Manual",
+    "phone": "(88) 99888-7766",
+    "device": "iPhone 15 Pro",
+    "service_type": "local",
+    "status": "completed",
+    "city": "Marco",
+    "createdAt": "2026-05-18T17:44:00.166Z"
+  },
+  {
+    "id": "1",
+    "name": "João Silva",
+    "phone": "(88) 99999-9999",
+    "device": "iPhone 14 Pro",
+    "service_type": "local",
+    "status": "completed",
+    "city": "Cruz",
+    "createdAt": "2026-05-18T10:00:00.000Z"
+  },
+  {
+    "id": "2",
+    "name": "Maria Oliveira",
+    "phone": "(88) 98888-8888",
+    "device": "Galaxy S23 Ultra",
+    "service_type": "retirada",
+    "status": "failed",
+    "city": "Marco",
+    "createdAt": "2026-05-15T14:30:00.000Z"
+  },
+  {
+    "id": "3",
+    "name": "Pedro Santos",
+    "phone": "(88) 97777-7777",
+    "device": "Apple Watch Series 8",
+    "service_type": "local",
+    "status": "pending",
+    "city": "Bela Cruz",
+    "createdAt": "2026-05-12T16:45:00.000Z"
+  },
+  {
+    "id": "4",
+    "name": "Ana Souza",
+    "phone": "(88) 96666-6666",
+    "device": "iPhone 13",
+    "service_type": "retirada",
+    "status": "completed",
+    "city": "Cruz",
+    "createdAt": "2026-04-20T11:20:00.000Z"
+  },
+  {
+    "id": "5",
+    "name": "Lucas Costa",
+    "phone": "(88) 95555-5555",
+    "device": "iPhone 15 Pro",
+    "service_type": "local",
+    "status": "completed",
+    "city": "Marco",
+    "createdAt": "2026-04-10T09:15:00.000Z"
+  },
+  {
+    "id": "6",
+    "name": "Carla Lima",
+    "phone": "(88) 94444-4444",
+    "device": "Galaxy S24",
+    "service_type": "local",
+    "status": "completed",
+    "city": "Bela Cruz",
+    "createdAt": "2026-03-15T15:30:00.000Z"
+  }
+]

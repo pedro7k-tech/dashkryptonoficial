@@ -1,0 +1,42 @@
+# Dependências de Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Configurações locais e chaves privadas
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Bancos de dados locais (evita expor informações ou ter conflitos de versão)
+leads.json
+finance.json
+goals.json
+
+# Arquivos do sistema operacional (Windows/macOS)
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Pastas de IDE e editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Arquivos compactados e backups
+*.zip
+*.rar
+*.7z

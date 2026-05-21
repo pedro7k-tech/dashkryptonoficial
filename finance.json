@@ -1,0 +1,74 @@
+[
+  {
+    "id": "1779328600062",
+    "description": "Test Sale iPhone 15",
+    "amount": 2500,
+    "type": "income",
+    "method": "PIX",
+    "date": "2026-05-21T01:56:40.062Z"
+  },
+  {
+    "id": "f1",
+    "description": "Blindagem Premium - iPhone 14 Pro",
+    "amount": 250,
+    "type": "income",
+    "method": "PIX",
+    "date": "2026-05-18T10:10:00.000Z"
+  },
+  {
+    "id": "f2",
+    "description": "Compra de Nanopartículas de Titânio (Insumo)",
+    "amount": 120,
+    "type": "expense",
+    "method": "Dinheiro",
+    "date": "2026-05-16T11:00:00.000Z"
+  },
+  {
+    "id": "f3",
+    "description": "Blindagem Premium - Galaxy S23 Ultra",
+    "amount": 250,
+    "type": "income",
+    "method": "PIX",
+    "date": "2026-05-15T14:35:00.000Z"
+  },
+  {
+    "id": "f4",
+    "description": "Blindagem Premium - iPhone 13",
+    "amount": 220,
+    "type": "income",
+    "method": "Cartão de Crédito",
+    "date": "2026-04-20T11:25:00.000Z"
+  },
+  {
+    "id": "f5",
+    "description": "Anúncios Meta Ads (Tráfego Pago)",
+    "amount": 100,
+    "type": "expense",
+    "method": "Cartão de Crédito",
+    "date": "2026-04-18T18:00:00.000Z"
+  },
+  {
+    "id": "f6",
+    "description": "Blindagem Premium - iPhone 15 Pro",
+    "amount": 300,
+    "type": "income",
+    "method": "PIX",
+    "date": "2026-04-10T09:20:00.000Z"
+  },
+  {
+    "id": "f7",
+    "description": "Blindagem Premium - Galaxy S24",
+    "amount": 220,
+    "type": "income",
+    "method": "PIX",
+    "date": "2026-03-15T15:35:00.000Z"
+  },
+  {
+    "id": "f8",
+    "description": "Taxas Administrativas",
+    "amount": 50,
+    "type": "expense",
+    "method": "Cartão de Débito",
+    "date": "2026-03-10T10:00:00.000Z"
+  }
+]

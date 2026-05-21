@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRYPTON Dashboard | Gestão e Financeiro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css?v=3">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <button class="mobile-menu-btn" id="mobile-menu-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="logo-container" style="padding: 0; display: flex; align-items: center; gap: 8px;">
+                <h1 class="logo">KRYPTON</h1>
+                <span class="logo-badge">PRO</span>
+            </div>
+            <div class="mobile-header-actions">
+                <div class="connection-status" style="padding: 6px 12px; margin: 0; border-radius: 12px;">
+                    <div class="status-dot pulse"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <h1 class="logo">KRYPTON</h1>
+                <span class="logo-badge">PRO</span>
+                <button class="btn-close-sidebar" id="sidebar-close-btn">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Painel Geral</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="leads">
+                    <i data-lucide="users"></i>
+                    <span>Leads</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="finance">
+                    <i data-lucide="dollar-sign"></i>
+                    <span>Financeiro</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="reports">
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Relatórios</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="goals">
+                    <i data-lucide="target"></i>
+                    <span>Metas</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">AD</div>
+                    <div class="user-details">
+                        <span class="user-name">Admin Krypton</span>
+                        <span class="user-role">Gestor de Operações</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- ================= DASHBOARD TAB ================= -->
+            <section id="dashboard" class="tab-content active">
+                <header class="top-header">
+                    <div class="header-title">
+                        <h2>Visão Geral</h2>
+                        <p>Acompanhe o volume das suas solicitações.</p>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <div class="connection-status">
+                            <div class="status-dot pulse"></div>
+                            <span>Live Sync</span>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon pending-icon"><i data-lucide="clock"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Aguardando Contato</span>
+                            <h3 class="kpi-value" id="kpi-pending">0</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon contacted-icon"><i data-lucide="message-circle"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Em Negociação</span>
+                            <h3 class="kpi-value" id="kpi-contacted">0</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon completed-icon"><i data-lucide="check-circle"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Blindagens Feitas</span>
+                            <h3 class="kpi-value" id="kpi-completed">0</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon total-icon"><i data-lucide="bar-chart-2"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Total de Leads</span>
+                            <h3 class="kpi-value" id="kpi-total">0</h3>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="leads-section" style="margin-top: 40px;">
+                    <div class="section-header">
+                        <h3>Últimas 5 Solicitações</h3>
+                        <button class="btn btn-outline" onclick="switchTab('leads')">Ver Todos</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="leads-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Cliente</th>
+                                    <th>WhatsApp</th>
+                                    <th>Dispositivo</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-leads-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= LEADS TAB ================= -->
+            <section id="leads" class="tab-content" style="display: none;">
+                <header class="top-header">
+                    <div class="header-title">
+                        <h2>Gestão de Leads</h2>
+                        <p>Gerencie todas as solicitações de blindagem.</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openLeadModal()">
+                            <i data-lucide="plus"></i>
+                            <span>Registrar Lead</span>
+                        </button>
+                        <button class="btn btn-outline" id="refresh-leads-btn">
+                            <i data-lucide="refresh-cw"></i>
+                            <span>Atualizar</span>
+                        </button>
+                    </div>
+                </header>
+
+                <div class="leads-section">
+                    <div class="section-header">
+                        <h3>Todos os Leads</h3>
+                        <div class="search-bar">
+                            <i data-lucide="search"></i>
+                            <input type="text" id="search-input" placeholder="Buscar por nome, telefone ou dispositivo...">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="leads-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Cliente</th>
+                                    <th>WhatsApp</th>
+                                    <th>Dispositivo</th>
+                                    <th>Tipo de Serviço</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leads-table-body"></tbody>
+                        </table>
+                    </div>
+                    
+                    <div id="empty-state" class="empty-state" style="display: none;">
+                        <div class="empty-icon"><i data-lucide="inbox"></i></div>
+                        <h4>Nenhum lead encontrado</h4>
+                        <p>As novas solicitações do site aparecerão aqui.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= FINANCE TAB ================= -->
+            <section id="finance" class="tab-content" style="display: none;">
+                <header class="top-header">
+                    <div class="header-title">
+                        <h2>Financeiro</h2>
+                        <p>Controle de vendas, receitas e despesas.</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-primary" onclick="openFinanceModal()">
+                            <i data-lucide="plus"></i>
+                            <span>Novo Registro</span>
+                        </button>
+                    </div>
+                </header>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon completed-icon"><i data-lucide="trending-up"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Receita Total</span>
+                            <h3 class="kpi-value text-green" id="fin-income">R$ 0,00</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon pending-icon" style="color: #ef4444; background: rgba(239, 68, 68, 0.1);"><i data-lucide="trending-down"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Despesas</span>
+                            <h3 class="kpi-value text-red" id="fin-expense">R$ 0,00</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon total-icon" style="color: var(--accent-cyan); background: rgba(0, 240, 255, 0.1);"><i data-lucide="activity"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Lucro Líquido</span>
+                            <h3 class="kpi-value text-cyan" id="fin-profit">R$ 0,00</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leads-section">
+                    <div class="section-header">
+                        <h3>Histórico de Transações</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="leads-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Método</th>
+                                    <th>Tipo</th>
+                                    <th style="text-align: right;">Valor</th>
+                                    <th style="text-align: center;">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="finance-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= REPORTS TAB ================= -->
+            <section id="reports" class="tab-content" style="display: none;">
+                <header class="top-header">
+                    <div class="header-title">
+                        <h2>Relatórios Analíticos</h2>
+                        <p>Desempenho operacional e financeiro detalhado por período.</p>
+                    </div>
+                </header>
+
+                <!-- Performance Operational KPIs -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon total-icon" style="color: var(--accent-cyan); background: rgba(0, 240, 255, 0.1);"><i data-lucide="users"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Quantidade de Leads</span>
+                            <h3 class="kpi-value text-cyan" id="rep-leads-count">0</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon completed-icon"><i data-lucide="shield"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Quantidade de Vendas</span>
+                            <h3 class="kpi-value text-green" id="rep-sales-count">0</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon total-icon" style="color: var(--accent-cyan); background: rgba(0, 240, 255, 0.1);"><i data-lucide="percent"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">% de Conversão</span>
+                            <h3 class="kpi-value text-cyan" id="rep-conversion-rate">0%</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon completed-icon"><i data-lucide="tag"></i></div>
+                        <div class="kpi-details">
+                            <span class="kpi-label">Ticket Médio</span>
+                            <h3 class="kpi-value text-green" id="rep-avg-ticket">R$ 0,00</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Layout -->
+                <div class="charts-layout">
+                    <div class="chart-card">
+                    <div class="chart-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 12px;">
+                        <div>
+                            <h3>Volume de Clientes (Leads)</h3>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Distribuição de cadastros por semana e por mês</p>
+                        </div>
+                        <select id="leads-chart-view-select" class="action-select" style="padding: 6px 12px; border-radius: 6px; font-size: 12px; min-width: 110px;">
+                            <option value="monthly" selected>Por Mês</option>
+                            <option value="weekly">Por Semana</option>
+                        </select>
+                    </div>
+                        <div class="chart-body">
+                            <canvas id="leadsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Desempenho Financeiro (R$)</h3>
+                            <p>Faturamento, Despesas e Lucro Líquido</p>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="financeChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desempenho por Cidade Grid -->
+                <div class="leads-section" style="margin-top: 32px; margin-bottom: 32px;">
+                    <div class="section-header" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                        <h3>Desempenho por Cidade</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary);">Mapeamento analítico regional de faturamento, captação e eficiência de vendas</p>
+                    </div>
+                    
+                    <div id="city-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 16px;">
+                        <!-- Dinamicamente gerado em JS com design espetacular -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= GOALS & PERFORMANCE TAB ================= -->
+            <section id="goals" class="tab-content" style="display: none;">
+                <header class="top-header">
+                    <div class="header-title">
+                        <h2>Metas & Desempenho</h2>
+                        <p>Defina metas mensais de faturamento e acompanhe a conversão operacional.</p>
+                    </div>
+                </header>
+
+                <!-- Goal Config Card -->
+                <div class="leads-section" style="margin-bottom: 32px;">
+                    <div class="section-header" style="margin-bottom: 16px;">
+                        <h3>Configuração de Meta</h3>
+                    </div>
+                    <div class="goal-config-flex" style="display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap;">
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-size: 13px; color: var(--text-secondary);">Mês da Meta</label>
+                            <input type="month" id="goal-month-select" class="input-field" style="width: 220px; padding: 10px 16px;">
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <label style="font-size: 13px; color: var(--text-secondary);">Meta de Faturamento (R$)</label>
+                            <input type="number" id="goal-target-input" class="input-field" placeholder="Ex: 5000" style="width: 220px; padding: 10px 16px;">
+                        </div>
+                        <button class="btn btn-primary" id="save-goal-btn" style="height: 46px; padding: 0 24px;">Definir Meta</button>
+                    </div>
+                </div>
+
+                <!-- Goal Tracker Visual Evolution Card -->
+                <div class="chart-card" style="margin-bottom: 32px; padding: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <div>
+                            <h3 style="font-size: 20px;">Acompanhamento da Meta</h3>
+                            <p style="font-size: 13px; color: var(--text-secondary);" id="goal-tracker-subtitle">Selecione um mês para ver a meta</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <span style="font-size: 13px; color: var(--text-muted); display: block;">Hoje falta</span>
+                            <span style="font-size: 24px; font-weight: 700; color: var(--accent-cyan);" id="goal-remaining">R$ 0,00</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Progress Bar -->
+                    <div style="background: rgba(255, 255, 255, 0.05); height: 16px; border-radius: 8px; width: 100%; overflow: hidden; margin: 16px 0; border: 1px solid var(--border-light);">
+                        <div id="goal-progress-bar" style="background: linear-gradient(90deg, var(--accent-cyan), #005f73); height: 100%; width: 0%; transition: width 0.5s ease;"></div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 500;">
+                        <span>Concluído: <span id="goal-percent">0%</span></span>
+                        <span>Faturado: <span id="goal-current">R$ 0,00</span> de <span id="goal-target">R$ 0,00</span></span>
+                    </div>
+                </div>
+
+
+
+                <!-- Custom Interactive Growth Charts -->
+                <div class="chart-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 16px;">
+                        <div>
+                            <h3>Gráfico de Crescimento Personalizado</h3>
+                            <p style="font-size: 13px; color: var(--text-secondary);">Escolha o período e a métrica desejada</p>
+                        </div>
+                        
+                        <!-- Selectors for custom charts -->
+                        <div class="chart-controls-flex" style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                            <!-- Calendário De / Até -->
+                            <div id="custom-date-range-container" class="custom-date-range-container" style="display: none; gap: 8px; align-items: center; background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); padding: 4px 12px; border-radius: 8px;">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500; text-transform: uppercase;">De</span>
+                                    <input type="date" id="growth-start-date" class="input-field" style="padding: 6px 8px; border-radius: 6px; font-size: 12px; height: 32px; width: 130px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-light);">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <span style="font-size: 11px; color: var(--text-secondary); font-weight: 500; text-transform: uppercase;">Até</span>
+                                    <input type="date" id="growth-end-date" class="input-field" style="padding: 6px 8px; border-radius: 6px; font-size: 12px; height: 32px; width: 130px; background: rgba(255,255,255,0.05); border: 1px solid var(--border-light);">
+                                </div>
+                            </div>
+
+                            <select id="growth-period-select" class="action-select" style="padding: 10px 16px; border-radius: 8px;">
+                                <option value="daily">Dias (Período Personalizado)</option>
+                                <option value="weekly">Semanas (Mês Atual)</option>
+                                <option value="monthly" selected>Por Meses</option>
+                            </select>
+                            
+                            <select id="growth-metric-select" class="action-select" style="padding: 10px 16px; border-radius: 8px;">
+                                <option value="all" selected>Todos</option>
+                                <option value="revenue">Faturamento</option>
+                                <option value="expense">Despesas</option>
+                                <option value="profit">Lucro</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Summary metrics for custom chart -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; margin-top: 8px;">
+                        <div class="kpi-card" style="padding: 14px 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; box-shadow: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span style="font-size: 12px; color: var(--text-secondary); font-weight: 500;">Faturamento (Filtro)</span>
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: #10b981;"></div>
+                            </div>
+                            <h4 id="chart-sum-revenue" style="font-size: 18px; font-weight: 700; color: #10b981;">R$ 0,00</h4>
+                        </div>
+                        <div class="kpi-card" style="padding: 14px 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; box-shadow: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span style="font-size: 12px; color: var(--text-secondary); font-weight: 500;">Despesas (Filtro)</span>
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444;"></div>
+                            </div>
+                            <h4 id="chart-sum-expense" style="font-size: 18px; font-weight: 700; color: #ef4444;">R$ 0,00</h4>
+                        </div>
+                        <div class="kpi-card" style="padding: 14px 20px; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; box-shadow: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                <span style="font-size: 12px; color: var(--text-secondary); font-weight: 500;">Resultado Líquido</span>
+                                <div style="width: 8px; height: 8px; border-radius: 50%; background: #00f0ff;"></div>
+                            </div>
+                            <h4 id="chart-sum-profit" style="font-size: 18px; font-weight: 700; color: #00f0ff;">R$ 0,00</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-body" style="height: 350px;">
+                        <canvas id="customGrowthChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Modal Financeiro -->
+    <div class="modal-overlay" id="finance-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Novo Registro Financeiro</h3>
+                <button class="btn-close" onclick="closeFinanceModal()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="finance-form">
+                <div class="form-group">
+                    <label>Tipo de Registro</label>
+                    <div class="radio-group-fin">
+                        <label class="radio-btn"><input type="radio" name="fin_type" value="income" checked> <span>Entrada (Venda)</span></label>
+                        <label class="radio-btn"><input type="radio" name="fin_type" value="expense"> <span>Saída (Despesa)</span></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <input type="text" id="fin_desc" class="input-field" placeholder="Ex: Blindagem iPhone 14 Pro" required>
+                </div>
+                <div class="form-group">
+                    <label>Valor (R$)</label>
+                    <input type="number" id="fin_amount" class="input-field" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label>Método de Pagamento</label>
+                    <select id="fin_method" class="input-field">
+                        <option value="PIX">PIX</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                        <option value="Cartão de Débito">Cartão de Débito</option>
+                        <option value="Dinheiro">Dinheiro</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 20px;">Salvar Registro</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Novo Lead Manual -->
+    <div class="modal-overlay" id="lead-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registrar Novo Lead</h3>
+                <button class="btn-close" onclick="closeLeadModal()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="lead-form">
+                <div class="form-group">
+                    <label>Nome do Cliente</label>
+                    <input type="text" id="lead_name" class="input-field" placeholder="Ex: João Silva" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp / Telefone</label>
+                    <input type="text" id="lead_phone" class="input-field" placeholder="Ex: (88) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label>Modelo do Dispositivo</label>
+                    <input type="text" id="lead_device" class="input-field" placeholder="Ex: iPhone 15 Pro Max" required>
+                </div>
+                <div class="form-group">
+                    <label>Cidade / Localização</label>
+                    <select id="lead_city" class="input-field" required>
+                        <option value="Cruz">Cruz</option>
+                        <option value="Marco">Marco</option>
+                        <option value="Bela Cruz">Bela Cruz</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Atendimento</label>
+                    <select id="lead_service_type" class="input-field" required>
+                        <option value="local">No Local</option>
+                        <option value="pickup">Retirada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Status Inicial</label>
+                    <select id="lead_status" class="input-field" required>
+                        <option value="pending">Aguardando</option>
+                        <option value="contacted">Em Contato</option>
+                        <option value="completed">Concluído</option>
+                        <option value="failed">Não Concluiu</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 20px;">Registrar Lead</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
